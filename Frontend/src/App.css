@@ -1,0 +1,325 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #2b2639;
+  align-items: center;
+}
+
+.Main-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  border: 5px solid #aca7b8;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right:auto;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+/* --- Game Status Banner System --- */
+.Game-status-section {
+  width: 100%;
+  max-width: 480px;
+  margin: 20px auto;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  font-family: system-ui, -apple-system, sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Typography styles inside the banner */
+.Game-status-section h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.Game-status-section p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* State 1: Active Play State (Subtle warning orange theme) */
+.Game-status-section.playing {
+  background-color: #3e3753;
+  color: #fcba28;
+  border: 1px solid rgba(252, 186, 40, 0.2);
+}
+
+/* State 2: Victory State (Joyful emerald emerald green banner) */
+.Game-status-section.won {
+  background-color: #10b981;
+  color: #ffffff;
+  border: 1px solid #047857;
+  animation: celebrate 0.5s ease-out 1;
+}
+
+/* State 3: Failure State (Deep warning crimson red banner) */
+.Game-status-section.lost {
+  background-color: #ec5d5d;
+  color: #ffffff;
+  border: 1px solid #b91c1c;
+}
+
+/* Flash effect when victory hits */
+@keyframes celebrate {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+
+.chip-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; 
+  width: 100%;
+  max-width: 480px; 
+  margin: 20px auto;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.05); 
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chip{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Generous padding prevents the text from sticking to borders */
+  padding: 6px 12px; 
+  
+  /* "Pill" style rounded corners */
+  border-radius: 20px; 
+  
+  /* Typography improvements */
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  
+  /* Crisp shadow to help chips pop off the background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  
+  /* Smooth scale effect if they shift or state changes occur */
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* --- Language Chip Status Animations --- */
+
+/* 1. The Continuous Shake Animation */
+.chip.shake {
+  animation: dynamicShake 0.5s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(252, 186, 40, 0.6); /* Gives a warning glow */
+  position: relative;
+  z-index: 2;
+}
+
+/* 2. The Dead State Style */
+.chip.dead {
+  background-color: transparent !important; 
+  color: #ff4a4a !important; 
+  opacity: 1; 
+  text-decoration: line-through; 
+  box-shadow: none;
+  border: 1px solid rgba(255, 74, 74, 0.3) !important;
+  transition: all 0.3s ease-out; 
+}
+
+/* 3. Defining the actual shake movement frames */
+@keyframes dynamicShake {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  15% { transform: translate(-2px, 1px) rotate(-1deg); }
+  30% { transform: translate(1px, -1px) rotate(1deg); }
+  45% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(2px, 1px) rotate(0deg); }
+  75% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 1px) rotate(-1deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+
+.Word-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Even spacing between each hidden letter */
+  gap: 8px; 
+  
+  margin: 30px auto;
+  width: 100%;
+  max-width: 450px;
+  min-height: 60px;
+}
+
+.word-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Perfect box sizing for letters */
+  width: 40px;
+  height: 40px;
+  
+  /* Clean bottom border underline style */
+  border-bottom: 3px solid #aca7b8; 
+  
+  /* Typography rules */
+  font-family: monospace, system-ui;
+  //font-size: 1.5rem;
+  font-size: 0;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  
+  background-color: #3d3651;
+  /* Smooth transition for when letters reveal themselves later */
+  transition: border-color 0.2s ease;
+}
+
+.word-letter.reveal-letter {
+  font-size: 1.5rem;
+}
+
+.word-letter.missed-letter {
+  font-size: 1.5rem;
+  color: #ec5d5d;
+  border-bottom-color: #ec5d5d;
+}
+
+.keyboard-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px; 
+  width: 100%;
+  max-width: 480px;
+  padding: 10px;
+}
+
+.keyboard-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  min-width: 36px;
+  height: 36px;
+  padding: 5px;
+  
+  background-color: #fcba28; 
+  color: #1e1b26;            
+  border: none;
+  border-radius: 4px;
+  
+  
+  font-family: monospace, system-ui;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  
+  
+  transition: background-color 0.1s ease, transform 0.05s ease;
+  box-shadow: 0 2px 0px #b58107;
+}
+
+.keyboard-btn:hover {
+  background-color: #ffd061;
+  transform: translateY(-1px);
+}
+
+/* Pressed down animation effect */
+.keyboard-btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* State management styling for letters already guessed / spent */
+.keyboard-btn:disabled {
+  background-color: transparent;
+  color: #ffffff;
+  opacity: 1;
+  box-shadow: none;
+  cursor: not-allowed;
+  transition: all 0.3s ease-out; 
+}
+
+.keyboard-btn.wrong:disabled {
+  background-color: #ec5d5d; /* Soft muted red/crimson error color */
+  color: #ffffff;
+  box-shadow: none;
+  text-decoration: line-through; /* Optional: adds a nice cross-out effect */
+}
+
+/* Styling for buttons that were clicked and ARE in the word */
+.keyboard-btn.right:disabled {
+  background-color: #10b981; /* Vibrant emerald green for correct guesses */
+  color: #ffffff;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* --- New Game Button Style --- */
+.new-game {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 30px auto 10px auto;
+  padding: 12px 24px;
+  
+  /* Bold interface typography */
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  /* Vibrant interactive emerald color profile */
+  background-color: #10b981; 
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  
+  /* Interactive 3D depth mechanism */
+  box-shadow: 0 4px 0px #065f46; 
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+}
+
+/* Hover State - Only lifts if game is over */
+.new-game:hover:not(:disabled) {
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0px #065f46;
+}
+
+/* Active Click State - Pushes down mechanically */
+.new-game:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0px #065f46;
+}
+
+/* Disabled State - Faded profile while match is running */
+.new-game:disabled {
+  background-color: #3d374e;
+  color: rgba(255, 255, 255, 0.15);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
